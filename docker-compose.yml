@@ -4,7 +4,19 @@ services:
   app:
     build: .
     command: npm start
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://user:pass@postgres:5432/hashing-password-poc
     ports:
       - "3000:3000"
     volumes:
       - .:/usr/app
+  postgres:
+    image: postgres:13.2-alpine
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: hashing-password-poc

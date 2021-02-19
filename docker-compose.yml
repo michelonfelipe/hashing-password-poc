@@ -8,6 +8,7 @@ services:
       - postgres
     environment:
       DATABASE_URL: postgres://user:pass@postgres:5432/hashing-password-poc
+      PEPPER: 98406f1e8315ebe3cda601619f1e3049
     ports:
       - "3000:3000"
     volumes:

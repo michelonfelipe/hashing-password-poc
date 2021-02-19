@@ -16,16 +16,11 @@ app.get("/", (_, res) => {
   res.send("Hello there!");
 });
 
-app.post("/plain", (req, res) => {
-  console.log('Got body:', req.body);
-    creationTechniques.plain(req.body)
-    .then(person => {
-      res.status(200).send(JSON.stringify(person));
-    })
-    .catch(err => {
-      res.status(500).send(JSON.stringify(err));
-    });
-});
+app.post("/plain", (req, res) => createWithTechnique('plain', req, res));
+app.post("/md5", (req, res) => createWithTechnique('md5', req, res));
+app.post("/sha256", (req, res) => createWithTechnique('sha256', req, res));
+app.post("/salt", (req, res) => createWithTechnique('salt', req, res));
+app.post("/pepper", (req, res) => createWithTechnique('pepper', req, res));
 
 app.delete("/:id", (req, res) => {
   db.User.destroy({
@@ -42,3 +37,9 @@ app.delete("/:id", (req, res) => {
 });
 
 app.listen(3000);
+
+const createWithTechnique = (technique, req, res) => {
+  creationTechniques[technique](req.body)
+    .then(() => res.sendStatus(201))
+    .catch(err => res.sendStatus(500))
+}

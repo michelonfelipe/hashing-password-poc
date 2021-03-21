@@ -1,12 +1,11 @@
 {
   "dependencies": {
     "express": "^4.17.1",
-    "nodemon": "^2.0.7",
     "pg": "^8.5.1",
     "sequelize": "^6.5.0"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "migrate": "node ./bin/migrate.js"
   }
 }

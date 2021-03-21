@@ -16,12 +16,25 @@ docker-compose run app npm run migrate
 And that's it for the setup.
 
 ## How to test?
-### Seeing the that on the database
+### Seeing the data on the database
 It's better to see directly from the database, so it would be the same thing as a hacker would see.
 To connect to the database, you can run:
 
 ```bash
 psql postgres://user:pass@localhost:35432/hashing-password-poc
+```
+
+After that, you can see how the passwords are being stored on the _users_ table:
+
+```sql
+SELECT * FROM users;
+```
+
+And the result should be somehing like this:
+```
+ id |     email      | password | salt |         createdAt          |         updatedAt
+----+----------------+----------+------+----------------------------+----------------------------
+  1 | email@mail.com | password |      | 2021-03-21 19:32:00.808+00 | 2021-03-21 19:32:00.808+00
 ```
 
 ### Saving data on the database
@@ -38,7 +51,7 @@ The path will depend on which method of encryption you'll want to use:
 
 `POST /{plain | md5 | sha256 | salt | pepper}`
 
-A cUrl request, as an example, would be as this:
+A curl request, as an example, would be as this:
 
 ```bash
 curl -X POST \
@@ -47,7 +60,7 @@ curl -X POST \
   localhost:3000/pepper
 ```
 
-**NOTE:** Remember to use the _Content-Type: application/json_ header
+**NOTE:** Remember to send the _Content-Type: application/json_ header
 
 ## Why do we need all of this?
 

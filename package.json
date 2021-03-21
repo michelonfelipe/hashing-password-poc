@@ -6,6 +6,6 @@
   },
   "scripts": {
     "start": "node index.js",
-    "migrate": "node ./bin/migrate.js"
+    "migrate": "node migrate.js"
   }
 }
